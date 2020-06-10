@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">Scientific Calculator</string>
+    <string name="num0">0</string>
+    <string name="num1">1</string>
+    <string name="num2">2</string>
+    <string name="num3">3</string>
+    <string name="num4">4</string>
+    <string name="num5">5</string>
+    <string name="num6">6</string>
+    <string name="num7">7</string>
+    <string name="num8">8</string>
+    <string name="num9">9</string>
+    <string name="btnPlus">+</string>
+    <string name="btnMinus">-</string>
+    <string name="btnMultiply">x</string>
+    <string name="btnDivide">÷</string>
+    <string name="btnBracket">()</string>
+    <string name="btnClear">C</string>
+    <string name="btnPercent">%</string>
+    <string name="btnDot">.</string>
+    <string name="btnEqual">=</string>
+    <string name="btnBackspace">&#60;</string>
+    <string name="btnSin">sin</string>
+    <string name="btnCos">cos</string>
+    <string name="btnTan">tan</string>
+    <string name="btnRoot">root</string>
+    <string name="btnPower">power</string>
+    <string name="btnProd">!</string>
+    <string name="btnLog">log</string>
+    <string name="btnln">ln</string>
+    <string name="btnConstant">e</string>
+    <string name="btnPi">π</string>
+    <string name="changeMode">Change mode</string>
+    <string name="changeTheme">Change theme</string>
 </resources>
