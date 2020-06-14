@@ -23,13 +23,14 @@
     <string name="btnSin">sin</string>
     <string name="btnCos">cos</string>
     <string name="btnTan">tan</string>
-    <string name="btnRoot">root</string>
-    <string name="btnPower">power</string>
+    <string name="btnRoot">√</string>
+    <string name="btnPower">x^</string>
     <string name="btnProd">!</string>
     <string name="btnLog">log</string>
     <string name="btnln">ln</string>
     <string name="btnConstant">e</string>
     <string name="btnPi">π</string>
+    <string name="btnModulus">mod</string>
     <string name="changeMode">Change mode</string>
     <string name="changeTheme">Change theme</string>
 </resources>

@@ -10,7 +10,7 @@
         android:id="@+id/display_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="6"
+        android:layout_weight="6.5"
         android:background="@android:color/background_dark"
         android:orientation="vertical"
         android:weightSum="10">
@@ -21,9 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:gravity="end"
-            android:padding="10dp"
+            android:padding="3dp"
             android:textColor="@android:color/white"
-            android:textSize="35sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/numOutput"
@@ -31,15 +31,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:gravity="end"
-            android:padding="10dp"
+            android:padding="3dp"
             android:textColor="@android:color/white"
-            android:textSize="35sp" />
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="3.5"
         android:background="@android:color/holo_orange_dark"
         android:orientation="vertical"
         android:weightSum="12">
@@ -115,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/btnPower"
+                android:textAllCaps="false"
                 android:textColor="@android:color/background_light" />
 
             <Button
@@ -128,13 +129,14 @@
                 android:textColor="@android:color/background_light" />
 
             <Button
-                android:id="@+id/btnBracket"
+                android:id="@+id/btnModulus"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/btnBracket"
-                android:textColor="@android:color/background_light" />
+                android:text="@string/btnModulus"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/btnPercent"

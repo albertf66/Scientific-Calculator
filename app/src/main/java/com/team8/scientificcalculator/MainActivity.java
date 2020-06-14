@@ -1,23 +1,14 @@
 package com.team8.scientificcalculator;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,16 +19,13 @@ import org.mozilla.javascript.Scriptable;
 import static android.graphics.Color.*;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_TEXT1 = "com.team8.application.scientificcalculator.EXTRA_TEXT1";
-    public static final String EXTRA_TEXT2 = "com.team8.application.scientificcalculator.EXTRA_TEXT2";
+    public static final String CURRENT_RESULT = "com.team8.application.scientificcalculator.CURRENT_RESULT";
     public static final String CURRENT_PROCESS = "com.team8.application.scientificcalculator.CURRENT_PROCESS";
     public static final String CURRENT_BG_COLOR = "com.team8.application.scientificcalculator.CURRENT_BG_COLOR";
     public static final String CURRENT_TEXT_COLOR = "com.team8.application.scientificcalculator.CURRENT_TEXT_COLOR";
 
     String process = "";
-    Boolean dotPressed = false;
-    Boolean checkBracket = false;
-    Boolean currentTheme = false;
+    Boolean dot_pressed = false, check_bracket = false, current_theme = false, operator_pressed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView numInput = findViewById(R.id.numInput);
         final TextView numOutput = findViewById(R.id.numOutput);
 
-        numInput.setText(intent.getStringExtra(MainActivity.EXTRA_TEXT1));
-        numOutput.setText(intent.getStringExtra(MainActivity.EXTRA_TEXT2));
+        numOutput.setText(intent.getStringExtra(MainActivity.CURRENT_RESULT));
+
         if(intent.getStringExtra(CURRENT_PROCESS) != null)
             process = intent.getStringExtra(CURRENT_PROCESS);
 
@@ -56,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.display_layout).setBackgroundColor(WHITE);
             numInput.setTextColor(BLACK);
             numOutput.setTextColor(BLACK);
-            currentTheme = true;
+            current_theme = true;
         }else{
             findViewById(R.id.display_layout).setBackgroundColor(BLACK);
             numInput.setTextColor(WHITE);
@@ -68,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "0");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -76,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "1");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -84,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "2");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -92,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "3");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -100,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "4");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -108,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "5");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -116,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "6");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -124,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "7");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -132,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "8");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -140,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 numInput.setText(process + "9");
                 process = numInput.getText().toString();
+                operator_pressed = false;
             }
         });
 
@@ -149,78 +147,121 @@ public class MainActivity extends AppCompatActivity {
                 numInput.setText("");
                 numOutput.setText("");
                 process = "";
-                checkBracket = false;
-                dotPressed = false;
+                check_bracket = false;
+                dot_pressed = false;
             }
         });
 
         findViewById(R.id.btnPlus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numInput.setText(process + "+");
-                process = numInput.getText().toString();
-                dotPressed = false;
+                if(!operator_pressed) {
+                    if(numInput.length() == 0 && numOutput.length() == 0){
+                        numInput.setText("0+");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    } else {
+                        numInput.setText(process + "+");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    }
+                    operator_pressed = true;
+                }
             }
         });
 
         findViewById(R.id.btnMinus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numInput.setText(process + "-");
-                process = numInput.getText().toString();
-                dotPressed = false;
+                if(!operator_pressed) {
+                    if (numInput.length() == 0 && numOutput.length() == 0) {
+                        numInput.setText("0-");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    } else {
+                        numInput.setText(process + "-");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    }
+                    operator_pressed = true;
+                }
             }
         });
 
         findViewById(R.id.btnMultiply).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numInput.setText(process + "x");
-                process = numInput.getText().toString();
-                dotPressed = false;
+                if(!operator_pressed) {
+                    if(numInput.length() == 0 && numOutput.length() == 0){
+                        numInput.setText("0x");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    } else {
+                        numInput.setText(process + "x");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    }
+                    operator_pressed = true;
+                }
             }
         });
 
         findViewById(R.id.btnDivide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numInput.setText(process + "/");
-                process = numInput.getText().toString();
-                dotPressed = false;
+                if(!operator_pressed) {
+                    if(numInput.length() == 0 && numOutput.length() == 0){
+                        numInput.setText("0/");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    } else {
+                        numInput.setText(process + "/");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    }
+                    operator_pressed = true;
+                }
             }
         });
 
         findViewById(R.id.btnPercent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numInput.setText(process + "%");
-                process = numInput.getText().toString();
-                dotPressed = false;
+                if(!operator_pressed) {
+                    if(numInput.length() == 0){
+                        numInput.setText("0%");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    } else {
+                        numInput.setText(process + "%");
+                        process = numInput.getText().toString();
+                        dot_pressed = false;
+                    }
+                    operator_pressed = true;
+                }
             }
         });
 
         findViewById(R.id.btnBracket).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkBracket){
+                if(check_bracket){
                     numInput.setText(process + ")");
                     process = numInput.getText().toString();
-                    checkBracket = false;
+                    check_bracket = false;
                 }else{
                     numInput.setText(process + "(");
                     process = numInput.getText().toString();
-                    checkBracket = true;
+                    check_bracket = true;
                 }
             }
         });
         findViewById(R.id.btnBackspace).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(numInput.length() == 0){
-                    //do nothing
-                }else{
+                if(numInput.length() != 0){
                     if(numInput.getText().toString().charAt(numInput.length()- 1)  == '.') {
-                        dotPressed = false;
+                        dot_pressed = false;
                     }
                     numInput.setText(numInput.getText().toString().trim().subSequence(0, numInput.length() - 1));
                     process = numInput.getText().toString();
@@ -230,10 +271,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnDot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(dotPressed) {
-                    // do nothing
-                }else{
-                    if(numInput.getText().length() != 0){
+                if(!dot_pressed){
+                    if(numInput.length() != 0){
                         if(numInput.getText().toString().charAt(numInput.length() - 1) == '+' ||
                             numInput.getText().toString().charAt(numInput.length() - 1) == '-' ||
                             numInput.getText().toString().charAt(numInput.length() - 1) == 'x' ||
@@ -242,22 +281,22 @@ public class MainActivity extends AppCompatActivity {
                             numInput.getText().toString().charAt(numInput.length() - 1) == '(' ) {
                             numInput.setText(process + "0.");
                             process = numInput.getText().toString();
-                            dotPressed = true;
+                            dot_pressed = true;
                         }else{
                             numInput.setText(process + ".");
                             process = numInput.getText().toString();
-                            dotPressed = true;
+                            dot_pressed = true;
                         }
                     }else if(numOutput.getText().length() != 0){
                         for(int i = 0; i < numOutput.length() - 1; i++){
                             if(numOutput.getText().toString().charAt(i) == '.')
-                                dotPressed = true;
+                                dot_pressed = true;
                         }
                     }
                     else{
                         numInput.setText(process + "0.");
                         process = numInput.getText().toString();
-                        dotPressed = true;
+                        dot_pressed = true;
                     }
                 }
             }
@@ -281,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                     numInput.setText("");
                     process = finalresult;
                 }catch(Exception e){
-                    finalresult = "ERROR";
+                    finalresult = "NaN";
                 }
                 numOutput.setText(finalresult);
             }
@@ -303,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
                 openScientific();
                 return true;
             case R.id.item2:
-                if(currentTheme) {
+                if(current_theme) {
                     Toast.makeText(this, "~Black theme~", Toast.LENGTH_SHORT).show();
                     item.setTitle("White theme");
                     changeTheme();
@@ -328,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
         int currentBgcolor;
         int currentTextColor;
 
-        if(currentTheme) {
+        if(current_theme) {
             currentBgcolor = WHITE;
             currentTextColor = BLACK;
         }else{
@@ -337,8 +376,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra(EXTRA_TEXT1,currentInput);
-        intent.putExtra(EXTRA_TEXT2,currentOutput);
+        intent.putExtra(CURRENT_RESULT,currentOutput);
         intent.putExtra(CURRENT_PROCESS,currentProcess);
         intent.putExtra(CURRENT_BG_COLOR,currentBgcolor);
         intent.putExtra(CURRENT_TEXT_COLOR,currentTextColor);
@@ -350,16 +388,16 @@ public class MainActivity extends AppCompatActivity {
         TextView numInput = findViewById(R.id.numInput);
         TextView numOutput = findViewById(R.id.numOutput);
 
-        if(currentTheme) {
+        if(current_theme) {
             display.setBackgroundColor(BLACK);
             numInput.setTextColor(WHITE);
             numOutput.setTextColor(WHITE);
-            currentTheme = false;
+            current_theme = false;
         }else{
             display.setBackgroundColor(WHITE);
             numInput.setTextColor(BLACK);
             numOutput.setTextColor(BLACK);
-            currentTheme = true;
+            current_theme = true;
         }
     }
 }
