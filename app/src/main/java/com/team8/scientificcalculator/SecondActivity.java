@@ -20,7 +20,7 @@ public class SecondActivity extends AppCompatActivity {
     String process = "", operator = "", processNumber = "", prodNumber = "";
     Double numberOne, numberTwo;
     Boolean dot_pressed = false, current_theme = false, operator_pressed = false,
-            special_operator = false, percent_pressed = false, pi_or_cons_pressed = false;
+            special_operator = false,  pi_or_cons_pressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +155,6 @@ public class SecondActivity extends AppCompatActivity {
                 operator = "";
                 processNumber = "";
                 dot_pressed = false;
-                percent_pressed = false;
                 operator_pressed = false;
                 special_operator = false;
                 pi_or_cons_pressed = false;
@@ -558,7 +557,6 @@ public class SecondActivity extends AppCompatActivity {
                 operator = "";
                 processNumber = "";
                 dot_pressed = false;
-                percent_pressed = false;
                 operator_pressed = false;
                 special_operator = false;
                 pi_or_cons_pressed = false;
@@ -789,10 +787,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     public void openBasic(){
-        TextView numInput = findViewById(R.id.numInput);
         TextView numOutput = findViewById(R.id.numOutput);
-
-        String currentInput = numInput.getText().toString();
         String currentOutput = numOutput.getText().toString();
         String currentProcesss = process;
         int currentBgcolor, currentTextColor;

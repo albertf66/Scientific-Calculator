@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String CURRENT_TEXT_COLOR = "com.team8.application.scientificcalculator.CURRENT_TEXT_COLOR";
 
     String process = "";
-    Boolean dot_pressed = false, check_bracket = false, current_theme = false, operator_pressed = false;
+    Boolean dot_pressed = false, check_bracket = false,
+            current_theme = false, operator_pressed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -268,6 +269,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        findViewById(R.id.btnBackspace).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                numInput.setText("");
+                numOutput.setText("");
+                process = "";
+                check_bracket = false;
+                dot_pressed = false;
+                return true;
+            }
+        });
+
         findViewById(R.id.btnDot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -358,10 +372,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openScientific(){
-        TextView numInput = findViewById(R.id.numInput);
         TextView numOutput = findViewById(R.id.numOutput);
 
-        String currentInput = numInput.getText().toString();
         String currentOutput = numOutput.getText().toString();
         String currentProcess = process;
         int currentBgcolor;
